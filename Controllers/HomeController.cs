@@ -22,14 +22,14 @@ namespace ToDoDiaryWeb.Controllers
         public IActionResult Index()
         {
         string r;
-        
-        
+        try
+        {
          r = Request.Cookies["Show"].ToString();
-        
-        
-        
+        }
+        catch(NullReferenceException)
+        {
             r="All";
-        
+        }
         if(r.Equals("All"))
         return View(db.GetAll.ToList().OrderBy(x=>x.Date));
         else 
