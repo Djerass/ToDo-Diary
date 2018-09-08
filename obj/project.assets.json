@@ -11832,11 +11832,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/azariah/ToDoDiaryWeb/ToDoDiaryWeb.csproj",
+      "projectUniqueName": "/home/azariah/ToDoDiaryWebGit/ToDo-Diary/ToDoDiaryWeb.csproj",
       "projectName": "ToDoDiaryWeb",
-      "projectPath": "/home/azariah/ToDoDiaryWeb/ToDoDiaryWeb.csproj",
+      "projectPath": "/home/azariah/ToDoDiaryWebGit/ToDo-Diary/ToDoDiaryWeb.csproj",
       "packagesPath": "/home/azariah/.nuget/packages/",
-      "outputPath": "/home/azariah/ToDoDiaryWeb/obj/",
+      "outputPath": "/home/azariah/ToDoDiaryWebGit/ToDo-Diary/obj/",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "/usr/share/dotnet/sdk/NuGetFallbackFolder"
