@@ -1,0 +1,32 @@
+@model ToDoDiaryWeb.Models.ToDo
+  
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+          
+        
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+           <div class="form-group">
+                <label asp-for="Date" class="control-label"></label>
+                <input asp-for="Date"  type="date" class="form-control input-validation-error" />
+                <span asp-validation-for="Date" class="text-danger"></span>
+                
+            </div>
+              <div class="form-group">
+                <label  class="control-label">Time</label>
+                <input name="time"  type="time" class="form-control" />
+                
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+            
+        </form>
+    </div>
+    
+</div>

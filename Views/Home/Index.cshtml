@@ -1,0 +1,55 @@
+﻿@model IEnumerable<ToDo>
+@{
+    ViewData["Title"] = "Home Page";
+}
+<form method="POST">
+   <div class="form-group">
+   
+   
+    <input name="date" required="" type="text" class="form-control" placeholder="Choose day" onfocus="(this.type='date')"/>
+    
+    </div>
+    <input  type="submit" class="btn btn-primary" value="Show"/>
+</form>
+<div class="dropdown form-group">
+  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Выпадающая ссылка
+  </a>
+
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+    <a class="dropdown-item" href="/Home/ChangeViewtoAll">Show all</a>
+    <a class="dropdown-item" href="/Home/ChangeViewtoFalse">Show only not finished</a>
+    
+  </div>
+</div>
+
+@if (Model.Any())
+{
+  <table class="table">
+<tr>
+  
+    <th>Description</th>
+    <th>DeadLine</th>
+    <th>Status</th>
+    <th></th>
+    <th></th>
+</tr>
+@foreach (var item in Model)
+{
+    
+        <tr>
+            
+            <td>@Html.DisplayFor(modelItem => item.Description)</td>
+            <td>@Html.DisplayFor(modelItem => item.Date)</td>
+            <td>@Html.DisplayFor(modelItem => item.Status)</td>
+            <td>@Html.ActionLink("Change Status", "Change", new {Id = @item.Id})</td>
+            <td>@Html.ActionLink("Delete task", "Delete", new {Id = @item.Id})</td>
+        </tr>
+    
+}
+</table>  
+}
+else
+{
+    <div>Nothing planed yet</div>
+}
