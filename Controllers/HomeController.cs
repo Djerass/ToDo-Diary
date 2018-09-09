@@ -15,33 +15,49 @@ namespace ToDoDiaryWeb.Controllers
         
         public HomeController(IToDoRepository _db)
         {
-            db=_db;
-            
-            
+            db=_db;      
         }
+        
         public IActionResult Index()
         {
-        string r;
-        try
-        {
-         r = Request.Cookies["Show"].ToString();
-        }
-        catch(NullReferenceException)
-        {
-            r="All";
-        }
-        if(r.Equals("All"))
-        return View(db.GetAll.ToList().OrderBy(x=>x.Date));
-        else 
-        return View(db.GetAll.ToList().Where(x=>x.Status==false).OrderBy(x=>x.Date));
+            string DateCookie;
+            try
+                {
+                    DateCookie=Request.Cookies["Date"].ToString();
+                }
+            catch(NullReferenceException)
+                {
+                    DateCookie=DateTime.Now.Date.ToString();
+                }
+            DateTime.TryParse(DateCookie,out DateTime DateRes);
+            string ShowCookieRes;
+            try
+                {
+                    ShowCookieRes = Request.Cookies["Show"].ToString();
+                }
+            catch(NullReferenceException)
+                {
+                     ShowCookieRes="All";
+                }
+            if(ShowCookieRes.Equals("All"))
+                return View(db.GetAll.OrderBy(x=>x.Date).Where(x=>x.Date.Date==DateRes.Date).ToList());
+            else 
+                return View(db.GetAll.Where(x=>x.Status==false).OrderBy(x=>x.Date).Where(x=>x.Date.Date==DateRes.Date).ToList());
         }
      
         // public IActionResult Index(bool All)=>View(All==true?db.GetAll.ToList().OrderBy(x=>x.Date):db.GetAll.Where(x=>x.Status==false).ToList().OrderBy(x=>x.Date));
         [HttpPost]
-        public IActionResult Index(DateTime date)=>View(db.GetAll.Where(x=>x.Date.Date==date.Date).OrderBy(x=>x.Date).ToList());
+        public IActionResult ChooseDate(DateTime date)
+        {
+            Response.Cookies.Delete("Date");
+            CookieOptions cookie = new CookieOptions();
+            cookie.Expires = DateTime.Now.AddDays(3);       
+            Response.Cookies.Append("Date",date.Date.ToString(),cookie);
+            return RedirectToAction("Index");
+        }
         public async Task<IActionResult> Change(int Id)
         {
-        await  db.ChangeStatus(Id);
+            await  db.ChangeStatus(Id);
             return RedirectToAction("Index");
         }
         public async Task<IActionResult> Delete(int Id)
@@ -68,7 +84,7 @@ namespace ToDoDiaryWeb.Controllers
             todo.Date=todo.Date.AddMinutes(time.Minute);
             
              await db.Add(todo);
-            return RedirectToAction("Index");
+             return RedirectToAction("Index");
         }
 
         public IActionResult ChangeViewtoAll()
@@ -85,7 +101,6 @@ namespace ToDoDiaryWeb.Controllers
             CookieOptions cookie = new CookieOptions();
             cookie.Expires = DateTime.Now.AddDays(3);       
             Response.Cookies.Append("Show","False",cookie);
-            
             return RedirectToAction("Index");
          }
     
