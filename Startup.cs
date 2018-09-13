@@ -6,10 +6,12 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using ToDo_Diary.Models;
 using ToDoDiaryWeb.Models;
 
 namespace ToDoDiaryWeb
@@ -34,8 +36,11 @@ namespace ToDoDiaryWeb
             });
 
             services.AddDbContext<ToDoContext>(options =>
-                options.UseSqlite(
+                options.UseSqlServer(
                     Configuration["Data:ToDoDb:ConnectionString"]));
+            
+            services.AddIdentity<User, IdentityRole>()
+                .AddEntityFrameworkStores<ToDoContext>();
             services.AddTransient<IToDoRepository,ToDoRepository>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
@@ -55,6 +60,7 @@ namespace ToDoDiaryWeb
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseAuthentication();
             app.UseCookiePolicy();
 
             app.UseMvc(routes =>
