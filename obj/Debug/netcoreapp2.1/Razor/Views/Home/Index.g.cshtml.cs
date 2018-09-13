@@ -60,7 +60,7 @@ using ToDoDiaryWeb.Models;
 #line default
 #line hidden
             BeginContext(71, 323, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "9b9d61401aab48e7bd5cb66ec95f2156", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "d1c214d41ced4c1da7d8f869d5efdf0b", async() => {
                 BeginContext(137, 250, true);
                 WriteLiteral("\r\n   <div class=\"form-group\">\r\n   \r\n   \r\n    <input name=\"date\" required=\"\" type=\"text\" class=\"form-control\" placeholder=\"Choose day\" onfocus=\"(this.type=\'date\')\"/>\r\n    \r\n    </div>\r\n    <input  type=\"submit\" class=\"btn btn-primary\" value=\"Show\"/>\r\n");
                 EndContext();
