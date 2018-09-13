@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using ToDo_Diary.Models;
 
 namespace ToDoDiaryWeb.Models
 {
@@ -15,5 +16,9 @@ namespace ToDoDiaryWeb.Models
         public string Description {get;set;}
 
         public bool Status {get;set;}
+
+       public string UserId{get;set;}
+       public User User{get;set;}
+
     }
 }
