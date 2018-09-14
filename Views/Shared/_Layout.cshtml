@@ -20,11 +20,33 @@
         <a class="nav-link" href="/Home/Index">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/Home/CreateToDo">Add task</a>
+       @if(User.Identity.IsAuthenticated){ <a class="nav-link" href="/Home/CreateToDo">Add task</a>}
       </li>
      
     </ul>
-  </div>
+    <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav ml-auto">
+      @if(!User.Identity.IsAuthenticated)
+      {
+      <li class="nav-item">
+        <a class="nav-link" href="/Account/Login">Login <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+       <a class="nav-link" href="/Account/Register">Register</a>
+      </li>
+      }
+      else{ 
+        <li class="nav-item">
+        <a class="nav-link border border-primary" href="#">@User.Identity.Name</a>
+        </li>
+        <li class="nav-item">
+       <form method="post" asp-controller="Account" asp-action="LogOff">
+        <input type="submit"   value="Выход" />
+    </form>
+        </li>
+      }
+    </ul>
+     </div>
 </nav>
     
 

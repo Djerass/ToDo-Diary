@@ -1,0 +1,28 @@
+@model ToDo_Diary.ViewModels.RegisterViewModel
+<h2>Регистрация нового пользователя</h2>
+<form method="post" asp-controller="Account" asp-action="Register">
+    <div class="text-danger" class="form-group" asp-validation-summary="ModelOnly"></div>
+    <div>
+        <label asp-for="Email"></label><br />
+        <input class="form-control" asp-for="Email" />
+        <span class="text-danger" asp-validation-for="Email" ></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Year"></label><br />
+        <input class="form-control" asp-for="Year" />
+        <span class="input-validation-error" asp-validation-for="Year"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Password"></label><br />
+        <input class="form-control" asp-for="Password" />
+        <span class="text-danger" asp-validation-for="Password"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="PasswordConfirm"></label><br />
+        <input class="form-control" asp-for="PasswordConfirm" />
+        <span class="text-danger" asp-validation-for="PasswordConfirm"></span>
+    </div>
+    <div>
+        <input  class="btn btn-primary" type="submit" value="Регистрация" />
+    </div>
+</form>

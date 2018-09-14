@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -40,9 +41,15 @@ namespace ToDoDiaryWeb.Controllers
                      ShowCookieRes="All";
                 }
             if(ShowCookieRes.Equals("All"))
-                return View(db.GetAll.OrderBy(x=>x.Date).Where(x=>x.Date.Date==DateRes.Date).ToList());
+                {
+                var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                return View(db.GetAll.OrderBy(x=>x.Date).Where(x=>x.UserId==userId).Where(x=>x.Date.Date==DateRes.Date).ToList());
+                }
             else 
-                return View(db.GetAll.Where(x=>x.Status==false).OrderBy(x=>x.Date).Where(x=>x.Date.Date==DateRes.Date).ToList());
+                {
+                var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                return View(db.GetAll.Where(x=>x.Status==false).Where(x=>x.UserId==userId).OrderBy(x=>x.Date).Where(x=>x.Date.Date==DateRes.Date).ToList());
+                }
         }
      
         // public IActionResult Index(bool All)=>View(All==true?db.GetAll.ToList().OrderBy(x=>x.Date):db.GetAll.Where(x=>x.Status==false).ToList().OrderBy(x=>x.Date));
@@ -82,7 +89,8 @@ namespace ToDoDiaryWeb.Controllers
             }
             todo.Date=todo.Date.AddHours(time.Hour);
             todo.Date=todo.Date.AddMinutes(time.Minute);
-            
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            todo.UserId = userId;
              await db.Add(todo);
              return RedirectToAction("Index");
         }

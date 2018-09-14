@@ -64,3 +64,5 @@
 /home/azariah/ToDoDiaryWebGit/ToDo-Diary/obj/Debug/netcoreapp2.1/ToDoDiaryWeb.dll
 /home/azariah/ToDoDiaryWebGit/ToDo-Diary/obj/Debug/netcoreapp2.1/ToDoDiaryWeb.pdb
 /home/azariah/ToDoDiaryWebGit/ToDo-Diary/obj/Debug/netcoreapp2.1/ToDoDiaryWeb.csproj.CopyComplete
+/home/azariah/ToDoDiaryWebGit/ToDo-Diary/obj/Debug/netcoreapp2.1/Razor/Views/Account/Register.g.cshtml.cs
+/home/azariah/ToDoDiaryWebGit/ToDo-Diary/obj/Debug/netcoreapp2.1/Razor/Views/Account/Login.g.cshtml.cs
