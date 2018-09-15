@@ -22,6 +22,9 @@ namespace ToDoDiaryWeb.Controllers
         public IActionResult Index()
         {
             string DateCookie;
+            //check: Are we having DateCookie and ShowCookie allready
+            //if  we have theirs  - read
+            //if we haven`t create default
             try
                 {
                     DateCookie=Request.Cookies["Date"].ToString();
@@ -31,6 +34,7 @@ namespace ToDoDiaryWeb.Controllers
                     DateCookie=DateTime.Now.Date.ToString();
                 }
             DateTime.TryParse(DateCookie,out DateTime DateRes);
+            ViewData["Date"]=DateRes;
             string ShowCookieRes;
             try
                 {
@@ -40,14 +44,18 @@ namespace ToDoDiaryWeb.Controllers
                 {
                      ShowCookieRes="All";
                 }
+            ViewData["Show"]=ShowCookieRes;
+             //if ShowCookie == "All" make model with all TodoS 
+             //else make model with only false ToDos
+             //Date of ToDos is from DateCookie
             if(ShowCookieRes.Equals("All"))
                 {
-                var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier); //taking current user Id
                 return View(db.GetAll.OrderBy(x=>x.Date).Where(x=>x.UserId==userId).Where(x=>x.Date.Date==DateRes.Date).ToList());
                 }
             else 
                 {
-                var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier); //taking current user Id
                 return View(db.GetAll.Where(x=>x.Status==false).Where(x=>x.UserId==userId).OrderBy(x=>x.Date).Where(x=>x.Date.Date==DateRes.Date).ToList());
                 }
         }
@@ -56,6 +64,7 @@ namespace ToDoDiaryWeb.Controllers
         [HttpPost]
         public IActionResult ChooseDate(DateTime date)
         {
+            //
             Response.Cookies.Delete("Date");
             CookieOptions cookie = new CookieOptions();
             cookie.Expires = DateTime.Now.AddDays(3);       
