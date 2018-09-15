@@ -9,6 +9,7 @@ namespace ToDoDiaryWeb.Models
         public ToDoRepository(ToDoContext db)
         {
             _db=db;
+           
         }
         public IQueryable<ToDo> GetAll => _db.ToDos;
 
