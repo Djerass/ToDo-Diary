@@ -27,7 +27,7 @@ namespace ToDoDiaryWeb.Controllers
             //if we haven`t create default
             try
                 {
-                    DateCookie=Request.Cookies["Date"].ToString();
+                    DateCookie=Request.Cookies["DateToDo"].ToString();
                 }
             catch(NullReferenceException)
                 {
@@ -65,10 +65,11 @@ namespace ToDoDiaryWeb.Controllers
         public IActionResult ChooseDate(DateTime date)
         {
             //
-            Response.Cookies.Delete("Date");
+            Response.Cookies.Delete("DateToDo");
             CookieOptions cookie = new CookieOptions();
             cookie.Expires = DateTime.Now.AddDays(3);       
-            Response.Cookies.Append("Date",date.Date.ToString(),cookie);
+            Response.Cookies.Append("DateToDo",date.ToString(),cookie);
+            
             return RedirectToAction("Index");
         }
         public async Task<IActionResult> Change(int Id)
