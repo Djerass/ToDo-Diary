@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -11,7 +12,7 @@ namespace ToDoDiaryWeb.Models
             _db=db;
            
         }
-        public IQueryable<ToDo> GetAll => _db.ToDos;
+        public IEnumerable<ToDo> GetAll => _db.ToDos;
 
         public async Task Add(ToDo todo)
         {
@@ -38,6 +39,20 @@ namespace ToDoDiaryWeb.Models
                 _db.ToDos.Remove(done);
                 await _db.SaveChangesAsync();
             }
+        }
+        public ToDo Find(int Id)=>      
+           _db.ToDos.FirstOrDefault(r=>r.Id==Id);
+
+        public async Task Update(ToDo toDo)
+        {
+            var res = _db.ToDos.FirstOrDefault(r=>r.Id==toDo.Id);
+            if(res!=null)
+                {
+                    res.Date=toDo.Date;
+                    res.Status=toDo.Status;
+                    res.Description=toDo.Description;
+                    await _db.SaveChangesAsync();
+                }
         }
     }
 }

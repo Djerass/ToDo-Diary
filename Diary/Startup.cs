@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Diary.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -42,6 +43,7 @@ namespace ToDoDiaryWeb
             services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<ToDoContext>();
             services.AddTransient<IToDoRepository,ToDoRepository>();
+            services.AddTransient<Iid,ForId>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 

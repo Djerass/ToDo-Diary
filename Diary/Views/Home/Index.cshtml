@@ -57,6 +57,7 @@
             <th>Status</th>
             <th></th>
             <th></th>
+            <th></th>
         </tr>
         @foreach (var item in Model)
         {
@@ -67,7 +68,9 @@
             <td>@Html.DisplayFor(modelItem => item.Date)</td>
             <td>@Html.DisplayFor(modelItem => item.Status)</td>
             <td>@Html.ActionLink("Change Status", "Change", new {Id = @item.Id})</td>
+            <td>@Html.ActionLink("Edit Task", "Edit", new {Id = @item.Id})</td>
             <td>@Html.ActionLink("Delete task", "Delete", new {Id = @item.Id})</td>
+            
         </tr>
 
         }
