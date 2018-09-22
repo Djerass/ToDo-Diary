@@ -13,7 +13,7 @@
                     <div class="form-group">
 
 
-                        <input name="date" required="" type="text" value="@ViewData["Date"]" class="form-control"
+                        <input name="date" required="" type="text" value="@ViewData["DateToDo"]" class="form-control"
                             placeholder="Choose day" onfocus="(this.type='date')" />
 
                     </div>
@@ -48,6 +48,7 @@
     </div>
     @if (Model.Any())
     {
+    <h2><span class="badge badge-secondary">@ViewData["DateToDo"]</span></h2>
     <table class="table">
         <tr>
 

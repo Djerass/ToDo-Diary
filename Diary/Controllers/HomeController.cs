@@ -34,7 +34,7 @@ namespace ToDoDiaryWeb.Controllers
                     DateCookie=DateTime.Now.Date.ToString();
                 }
             DateTime.TryParse(DateCookie,out DateTime DateRes);
-            ViewData["Date"]=DateRes;
+            ViewData["DateToDo"]=DateRes.ToShortDateString();
             string ShowCookieRes;
             try
                 {
@@ -68,7 +68,7 @@ namespace ToDoDiaryWeb.Controllers
             Response.Cookies.Delete("DateToDo");
             CookieOptions cookie = new CookieOptions();
             cookie.Expires = DateTime.Now.AddDays(3);       
-            Response.Cookies.Append("DateToDo",date.ToString(),cookie);
+            Response.Cookies.Append("DateToDo",date.ToShortDateString(),cookie);
             
             return RedirectToAction("Index");
         }
