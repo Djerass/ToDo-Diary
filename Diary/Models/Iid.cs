@@ -4,11 +4,11 @@ namespace Diary.Models
 {
     public interface Iid
     {
-         string TakaId(ClaimsPrincipal User);
+         string TakeId(ClaimsPrincipal User);
     }
     public class ForId : Iid
     {
-        public string TakaId(ClaimsPrincipal User)
+        public string TakeId(ClaimsPrincipal User)
         {
             return User.FindFirstValue(ClaimTypes.NameIdentifier);
         }

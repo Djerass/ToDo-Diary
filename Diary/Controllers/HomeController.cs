@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Diary.Models;
+using Diary.Service;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ToDoDiaryWeb.Models;
@@ -52,12 +53,12 @@ namespace ToDoDiaryWeb.Controllers
              //Date of ToDos is from DateCookie
             if(ShowCookieRes.Equals("All"))
                 {
-                var userId = id.TakaId(this.User); //taking current user Id
+                var userId = id.TakeId(this.User); //taking current user Id
                 return View(db.GetAll.OrderBy(x=>x.Date).Where(x=>x.UserId==userId).Where(x=>x.Date.Date==DateRes.Date).ToList());
                 }
             else 
                 {
-                var userId = id.TakaId(this.User); //taking current user Id
+                var userId = id.TakeId(this.User); //taking current user Id
                 return View(db.GetAll.Where(x=>x.Status==false).Where(x=>x.UserId==userId).OrderBy(x=>x.Date).Where(x=>x.Date.Date==DateRes.Date).ToList());
                 }
         }
@@ -110,7 +111,7 @@ namespace ToDoDiaryWeb.Controllers
             }
             todo.Date=todo.Date.AddHours(time.Hour);
             todo.Date=todo.Date.AddMinutes(time.Minute);
-            var userId = id.TakaId(this.User);
+            var userId = id.TakeId(this.User);
             todo.UserId = userId;
              await db.Add(todo);
              return RedirectToAction("Index");
@@ -125,6 +126,15 @@ namespace ToDoDiaryWeb.Controllers
          {   
             SwapCookie("Show","False");
             return RedirectToAction("Index");
+         }
+         public IActionResult Stat()
+         {
+             var userId=id.TakeId(this.User);
+            Statistic stat = new Statistic(db.GetAll.Where(i=>i.UserId==userId).ToArray());
+            ViewData["AllCount"]=stat.CountAll;
+            ViewData["NotFinishedCount"]=stat.CountNotFinished;
+            ViewData["FailedCount"]=stat.CountFailed;
+            return View(stat.Failed());
          }
        
         private void SwapCookie(string key,string value)

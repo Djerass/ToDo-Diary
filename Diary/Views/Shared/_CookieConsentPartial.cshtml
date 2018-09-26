@@ -33,6 +33,7 @@
     <script>
         (function () {
             document.querySelector("#cookieConsent button[data-cookie-string]").addEventListener("click", function (el) {
+// ReSharper disable once PossiblyUnassignedProperty
                 document.cookie = el.target.dataset.cookieString;
                 document.querySelector("#cookieConsent").classList.add("hidden");
             }, false);
