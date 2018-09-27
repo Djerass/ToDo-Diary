@@ -13,5 +13,6 @@ namespace ToDo_Diary.Models
         public int Height{get;set;}
         
         public List<ToDo> ToDos { get; set; }
+        public List<Training> Trainings { get; set; }
     }
 }

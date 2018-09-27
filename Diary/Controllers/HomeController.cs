@@ -14,29 +14,29 @@ namespace ToDoDiaryWeb.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly  IToDoRepository db;
-        private readonly Iid id;
+        private readonly  IToDoRepository _db;
+        private readonly Iid _id;
         public HomeController(IToDoRepository _db,Iid _id)
         {
-            db=_db;      
-            id=_id;
+            this._db=_db;      
+            this._id=_id;
         }
         
         public IActionResult Index()
         {
-            string DateCookie;
+            string dateCookie;
             //check: Are we have DateCookie and ShowCookie allready
             //if  we have theirs  - read
             //if we haven`t create default
             try
                 {
-                    DateCookie=Request.Cookies["DateToDo"].ToString();
+                    dateCookie=Request.Cookies["DateToDo"].ToString();
                 }
             catch(NullReferenceException)
                 {
-                    DateCookie=DateTime.Now.Date.ToString();
+                    dateCookie=DateTime.Now.Date.ToString();
                 }
-            DateTime.TryParse(DateCookie,out DateTime DateRes);
+            DateTime.TryParse(dateCookie,out DateTime DateRes);
             ViewData["DateToDo"]=DateRes.ToShortDateString();
             string ShowCookieRes;
             try
@@ -53,13 +53,13 @@ namespace ToDoDiaryWeb.Controllers
              //Date of ToDos is from DateCookie
             if(ShowCookieRes.Equals("All"))
                 {
-                var userId = id.TakeId(this.User); //taking current user Id
-                return View(db.GetAll.OrderBy(x=>x.Date).Where(x=>x.UserId==userId).Where(x=>x.Date.Date==DateRes.Date).ToList());
+                var userId = _id.TakeId(this.User); //taking current user Id
+                return View(_db.GetAll.OrderBy(x=>x.Date).Where(x=>x.UserId==userId).Where(x=>x.Date.Date==DateRes.Date).ToList());
                 }
             else 
                 {
-                var userId = id.TakeId(this.User); //taking current user Id
-                return View(db.GetAll.Where(x=>x.Status==false).Where(x=>x.UserId==userId).OrderBy(x=>x.Date).Where(x=>x.Date.Date==DateRes.Date).ToList());
+                var userId = _id.TakeId(this.User); //taking current user Id
+                return View(_db.GetAll.Where(x=>x.Status==false).Where(x=>x.UserId==userId).OrderBy(x=>x.Date).Where(x=>x.Date.Date==DateRes.Date).ToList());
                 }
         }
        
@@ -74,24 +74,24 @@ namespace ToDoDiaryWeb.Controllers
         }
         public async Task<IActionResult> Change(int Id)
         {
-            await  db.ChangeStatus(Id);
+            await  _db.ChangeStatus(Id);
             return RedirectToAction("Index");
         }
         [HttpGet]
-        public IActionResult Edit(int Id)=> View(db.Find(Id));
+        public IActionResult Edit(int Id)=> View(_db.Find(Id));
         
         [HttpPost]
         public async Task<IActionResult> Edit(ToDo toDo,DateTime time)
         {
           toDo.Date= toDo.Date.AddHours(time.Hour);
           toDo.Date=toDo.Date.AddMinutes(time.Minute);
-          await db.Update(toDo);
+          await _db.Update(toDo);
           return RedirectToAction("Index");
         }
         
         public async Task<IActionResult> Delete(int Id)
         {
-            await db.Delete(Id);
+            await _db.Delete(Id);
             return RedirectToAction("Index");
         }
         [HttpGet]
@@ -111,9 +111,9 @@ namespace ToDoDiaryWeb.Controllers
             }
             todo.Date=todo.Date.AddHours(time.Hour);
             todo.Date=todo.Date.AddMinutes(time.Minute);
-            var userId = id.TakeId(this.User);
+            var userId = _id.TakeId(this.User);
             todo.UserId = userId;
-             await db.Add(todo);
+             await _db.Add(todo);
              return RedirectToAction("Index");
         }
 
@@ -129,8 +129,8 @@ namespace ToDoDiaryWeb.Controllers
          }
          public IActionResult Stat()
          {
-             var userId=id.TakeId(this.User);
-            Statistic stat = new Statistic(db.GetAll.Where(i=>i.UserId==userId).ToArray());
+             var userId=_id.TakeId(this.User);
+            Statistic stat = new Statistic(_db.GetAll.Where(i=>i.UserId==userId).ToArray());
             ViewData["AllCount"]=stat.CountAll;
             ViewData["NotFinishedCount"]=stat.CountNotFinished;
             ViewData["FailedCount"]=stat.CountFailed;
