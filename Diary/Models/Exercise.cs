@@ -8,6 +8,10 @@ namespace ToDoDiaryWeb.Models
         public string  Name{ get; set; }
         public string Technique { get; set; }
         public string Url { get; set; }
+
+        public int MuscleGroupId { get; set; }
+        public MuscleGroup MuscleGroup { get; set; }
+
         public List<Training> Trainings { get; set; }
     }
 }

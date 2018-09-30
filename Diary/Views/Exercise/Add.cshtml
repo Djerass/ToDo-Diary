@@ -1,0 +1,31 @@
+@model ToDoDiaryWeb.Models.Exercise
+
+@{
+    ViewBag.Title = "Add Exercise";
+    Layout = "_Layout";
+}
+
+<h2>Add Exercise</h2>
+<form asp-action="Add" asp-controller="Exercise">
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input class="form-control" asp-for="Name" required=""/>
+    </div>
+    <div class="form-group">
+        <label asp-for="Technique"></label>
+        <input class="form-control" asp-for="Technique"/>
+    </div>
+    <div class="form-group">
+        <label asp-for="Url"></label>
+        <input class="form-control" asp-for="Url"/>
+    </div>
+    <div class="form-group">
+        <label asp-for="MuscleGroupId"></label>
+        <select class="form-control" asp-for="MuscleGroupId" asp-items="@(new SelectList(ViewBag.MuscleGroups, "Id", "Name"))">
+            <option>
+                Choose muscle group
+            </option>
+        </select>
+    </div>
+    <input type="submit" value="Add" class="btn btn-primary"/>
+</form>

@@ -1,0 +1,23 @@
+@model MuscleGroup
+
+@{
+    ViewBag.Title = "Update muscle group";
+    Layout = "_Layout";
+}
+
+<h2>Update</h2>
+@if (Model != null)
+{
+    <form asp-controller="Muscle" asp-action="Update" method="post">
+    <div class="form-group">
+        <label  asp-for="Name"></label>
+        <input class="form-control" type="text" required="" asp-for="Name" value="@Model.Name"/>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+    </form> 
+}
+else
+{
+    <h3>Incorrect muscle group</h3>
+    <a asp-action="Index" asp-controller="Muscle">Back</a>
+}

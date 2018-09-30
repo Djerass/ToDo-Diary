@@ -192,6 +192,8 @@ namespace ToDoDiaryWeb.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("MuscleGroupId");
+
                     b.Property<string>("Name");
 
                     b.Property<string>("Technique");
@@ -200,7 +202,22 @@ namespace ToDoDiaryWeb.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("MuscleGroupId");
+
                     b.ToTable("Exercises");
+                });
+
+            modelBuilder.Entity("ToDoDiaryWeb.Models.MuscleGroup", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MuscleGroups");
                 });
 
             modelBuilder.Entity("ToDoDiaryWeb.Models.ToDo", b =>
@@ -288,6 +305,14 @@ namespace ToDoDiaryWeb.Migrations
                     b.HasOne("ToDo_Diary.Models.User")
                         .WithMany()
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("ToDoDiaryWeb.Models.Exercise", b =>
+                {
+                    b.HasOne("ToDoDiaryWeb.Models.MuscleGroup", "MuscleGroup")
+                        .WithMany("Exercises")
+                        .HasForeignKey("MuscleGroupId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

@@ -13,6 +13,7 @@ namespace ToDoDiaryWeb.Models
         public DbSet<ToDo> ToDos{get;set;}
         public DbSet<Training> Trainings { get; set; }
         public DbSet<Exercise> Exercises { get; set; }
+        public DbSet<MuscleGroup> MuscleGroups { get; set; }
 
     }
 }

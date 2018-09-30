@@ -14,6 +14,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ToDo_Diary.Models;
 using ToDoDiaryWeb.Models;
+using ToDoDiaryWeb.Repositories;
 
 namespace ToDoDiaryWeb
 {
@@ -44,6 +45,8 @@ namespace ToDoDiaryWeb
                 .AddEntityFrameworkStores<ToDoContext>();
             services.AddTransient<IToDoRepository,ToDoRepository>();
             services.AddTransient<Iid,ForId>();
+            services.AddTransient<IMuscle, MuscleRepo>();
+            services.AddTransient<IExercise, ExerciseRepo>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
