@@ -1,0 +1,36 @@
+@model ToDoDiaryWeb.Models.Exercise
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "_Layout";
+}
+
+
+<h2>Edit @Model.Name</h2>
+<form asp-action="Edit" asp-controller="Exercise">
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input class="form-control" asp-for="Name" value="@Model.Name" required=""/>
+    </div>
+    <div class="form-group">
+        <label asp-for="Technique"></label>
+        <textarea class="form-control" asp-for="Technique">@Model.Technique</textarea>
+    </div>
+    <div class="form-group">
+        <label asp-for="VideoUrl"></label>
+        <input class="form-control"  asp-for="VideoUrl" value="@Model.VideoUrl"/>
+    </div>
+    <div class="form-group">
+        <label asp-for="ImgUrl"></label>
+        <input class="form-control"  asp-for="ImgUrl" value="@Model.ImgUrl"/>
+    </div>
+    <div class="form-group">
+        <label asp-for="MuscleGroupId"></label>
+        <select class="form-control" asp-for="MuscleGroupId" asp-items="@(new SelectList(ViewBag.MuscleGroups, "Id", "Name"))">
+            <option>
+                @Model.MuscleGroup.Name
+            </option>
+        </select>
+    </div>
+    <input type="submit" value="Save" class="btn btn-primary"/> 
+</form>

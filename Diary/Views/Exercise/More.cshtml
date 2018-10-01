@@ -1,0 +1,30 @@
+@model ToDoDiaryWeb.Models.Exercise
+
+@{
+    ViewBag.Title = "Exercise";
+    Layout = "_Layout";
+}
+
+
+<h2 style="text-align:center">@Model.Name</h2>
+
+<div>
+    
+    @if (Model.ImgUrl != null)
+    {
+        <h3>How to @Model.Name</h3>
+        <img style="margin: 1%;" width="480" height="390" src="@Model.ImgUrl" border="0"/>
+    }
+    <p>@Model.Technique</p>
+</div>
+
+<div>
+    
+    @if (Model.VideoUrl != null)
+    {
+        <h3>Look at YouTube</h3>
+        <iframe title="YouTube video player" width="480" height="390" src="@Model.VideoUrl" frameborder="0" allowfullscreen></iframe>
+    }
+
+</div>
+<a asp-action="Index" asp-controller="Exercise" class="btn btn-primary">Back list of exercise</a>

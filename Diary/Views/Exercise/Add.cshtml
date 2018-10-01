@@ -13,18 +13,20 @@
     </div>
     <div class="form-group">
         <label asp-for="Technique"></label>
-        <input class="form-control" asp-for="Technique"/>
+        <textarea class="form-control" asp-for="Technique"></textarea>
     </div>
     <div class="form-group">
-        <label asp-for="Url"></label>
-        <input class="form-control" asp-for="Url"/>
+        <label asp-for="VideoUrl"></label>
+        <input class="form-control"  asp-for="VideoUrl"/>
+    </div>
+    <div class="form-group">
+        <label asp-for="ImgUrl"></label>
+        <input class="form-control"  asp-for="ImgUrl"/>
     </div>
     <div class="form-group">
         <label asp-for="MuscleGroupId"></label>
-        <select class="form-control" asp-for="MuscleGroupId" asp-items="@(new SelectList(ViewBag.MuscleGroups, "Id", "Name"))">
-            <option>
-                Choose muscle group
-            </option>
+        <select class="form-control" asp-for="MuscleGroupId"  required="" asp-items="@(new SelectList(ViewBag.MuscleGroups, "Id", "Name"))">
+           
         </select>
     </div>
     <input type="submit" value="Add" class="btn btn-primary"/>

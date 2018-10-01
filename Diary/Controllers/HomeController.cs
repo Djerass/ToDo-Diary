@@ -78,7 +78,7 @@ namespace ToDoDiaryWeb.Controllers
             return RedirectToAction("Index");
         }
         [HttpGet]
-        public IActionResult Edit(int Id)=> View(_db.Find(Id));
+        public IActionResult Edit(int id)=> View(_db.Find(id));
         
         [HttpPost]
         public async Task<IActionResult> Edit(ToDo toDo,DateTime time)

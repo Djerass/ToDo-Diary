@@ -192,13 +192,15 @@ namespace ToDoDiaryWeb.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("ImgUrl");
+
                     b.Property<int>("MuscleGroupId");
 
                     b.Property<string>("Name");
 
                     b.Property<string>("Technique");
 
-                    b.Property<string>("Url");
+                    b.Property<string>("VideoUrl");
 
                     b.HasKey("Id");
 

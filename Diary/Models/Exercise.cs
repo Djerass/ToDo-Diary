@@ -7,7 +7,8 @@ namespace ToDoDiaryWeb.Models
         public int Id { get; set; }
         public string  Name{ get; set; }
         public string Technique { get; set; }
-        public string Url { get; set; }
+        public string VideoUrl { get; set; }
+        public string ImgUrl { get; set;  }
 
         public int MuscleGroupId { get; set; }
         public MuscleGroup MuscleGroup { get; set; }

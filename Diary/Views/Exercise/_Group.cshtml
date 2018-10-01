@@ -1,0 +1,14 @@
+@model ToDoDiaryWeb.Models.MuscleGroup
+
+<div class="card">
+    <div class="card-text">
+        <form asp-controller="Exercise" asp-action="ChangeStance">
+            <div class="form-group">
+                <select class="form-control" required=""  asp-for="Id" asp-items="@(new SelectList(ViewBag.MuscleGroups, "Id", "Name"))">
+                                
+                </select>
+                <input type="submit" value="Show"/>
+            </div>
+        </form>
+    </div>
+</div>

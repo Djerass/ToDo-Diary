@@ -1,5 +1,6 @@
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using ToDoDiaryWeb.Models;
 
 namespace ToDoDiaryWeb.Repositories
@@ -16,7 +17,7 @@ namespace ToDoDiaryWeb.Repositories
 
         public IQueryable<MuscleGroup> GetMuscleGroups() => _db.MuscleGroups;
 
-        public IQueryable<Exercise> GetAllExercises() => _db.Exercises;
+        public IQueryable<Exercise> GetAllExercises() => _db.Exercises.Include(p=>p.MuscleGroup);
 
         public async Task Add(Exercise exercise )
         {
@@ -42,12 +43,13 @@ namespace ToDoDiaryWeb.Repositories
                 res.Name = exercise.Name;
                 res.Technique = exercise.Technique;
                 res.Trainings = exercise.Trainings;
-                res.Url = exercise.Url;
+                res.VideoUrl = exercise.VideoUrl;
+                res.ImgUrl = exercise.ImgUrl;
                 res.MuscleGroupId = exercise.MuscleGroupId;
                 await _db.SaveChangesAsync();
             }
         }
 
-        public Exercise FindId(int id) => _db.Exercises.FirstOrDefault(i => i.Id == id);
+        public Exercise FindId(int id) => _db.Exercises.Include(p=>p.MuscleGroup).FirstOrDefault(i => i.Id == id);
     }
 }
