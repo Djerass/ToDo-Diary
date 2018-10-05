@@ -1,5 +1,8 @@
+using System;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ToDoDiaryWeb.Models;
 using ToDoDiaryWeb.Repositories;
@@ -11,25 +14,33 @@ namespace ToDoDiaryWeb.Controllers
     {
         private readonly IExercise _db;
 
-        private int _stance;
+        private  int _stance;
         
         public ExerciseController(IExercise db)
         {
             _db=db;
-            _stance = -1;
             
-            ViewBag.MuscleGroups = db.GetMuscleGroups().ToList();
+         
+            ViewBag.MuscleGroups = _db.GetMuscleGroups().ToList();
+            
 
         }
 
         public IActionResult Index()
         {
-            if (_stance!=-1)
-            return View(_db.GetAllExercises().Where(i=>i.MuscleGroupId ==_stance).ToList());
+            
+           _stance=ReadCookie();
+            if(_stance==-1||_stance==0)
+            {
+                var model = new ExerciseViewModel(){Exercises = _db.GetAllExercises().OrderBy(i=>i.MuscleGroupId).ToList(),MuscleGroups = _db.GetMuscleGroups().ToList()};
+                return View(model);
+            }
             else
             {
-                return View(_db.GetAllExercises().ToList());
+                var model = new ExerciseViewModel(){Exercises = _db.GetAllExercises().Where(i=>i.MuscleGroupId==_stance).ToList(),MuscleGroups = _db.GetMuscleGroups().ToList()};
+                return View(model);
             }
+           
         }
 
         public IActionResult Add()
@@ -66,24 +77,53 @@ namespace ToDoDiaryWeb.Controllers
             await _db.Edit(exercise);
             return RedirectToAction("Index");
         }
-
-        public IActionResult ChangeStance(int id)
+        [HttpPost]
+        public IActionResult ChangeStance(ExerciseViewModel model)
         {
-            _stance = id;
+            
+
+            SetCookie("ShowMuscle",model.Stance);
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public IActionResult DropStance()
+        {
+            SetCookie("ShowMuscle",-1);
             return RedirectToAction("Index");
         }
 
         public IActionResult Group()
         {
             ViewBag.MuscleGroups = _db.GetMuscleGroups().ToList();
-            return PartialView("_Group");
+            var model = new ExerciseViewModel(){MuscleGroups = _db.GetMuscleGroups().ToList()};
+            return PartialView("_Group",model);
         }
 
-        public IActionResult _Group(StanceViewModel stanceViewModel)
+        private int ReadCookie()
         {
-            _stance = stanceViewModel.Id;
-            return RedirectToAction("Index");
+            int result=-1;
+            try
+            {
+                if (Request.Cookies.TryGetValue("ShowMuscle", out var res))
+                        int.TryParse(res, out result);
+            }
+            catch (NullReferenceException e)
+            {
+                
+
+            }
+            
+            return result;
         }
+
+        private void SetCookie(string key,int value)
+        {
+            CookieOptions cookieOptions = new CookieOptions();
+            cookieOptions.Expires = DateTime.Now.AddDays(3);
+            Response.Cookies.Append(key,value.ToString(),cookieOptions);
+        }
+                
         
 
     }

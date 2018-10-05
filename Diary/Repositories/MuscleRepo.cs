@@ -1,5 +1,6 @@
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace ToDoDiaryWeb.Models
 {
@@ -11,7 +12,7 @@ namespace ToDoDiaryWeb.Models
         {
             _db = db;
         }
-        public IQueryable<MuscleGroup> GetAll() => _db.MuscleGroups;
+        public IQueryable<MuscleGroup> GetAll() => _db.MuscleGroups.Include(p=>p.Exercises);
 
         public async Task Delete(int id)
         {

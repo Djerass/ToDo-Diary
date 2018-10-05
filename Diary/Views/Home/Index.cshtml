@@ -1,86 +1,69 @@
-﻿@model IEnumerable<ToDo>
-    @{
-    ViewData["Title"] = "Home Page";
-    }
-
-    @if(User.Identity.IsAuthenticated){
 
 
+@{
+    ViewBag.Title = "Sport diary";
+    Layout = "_Layout";
+}
 
-    <div class="row">
-        <div class="col-3">
-            <div class="card">
+
+<div class="jumbotron">
+    <h1 class="display-4">Welcome to Sport Diary</h1>
+    <p class="lead">With help of our site you can systematize your workouts and daily tasks</p>
+    <hr class="my-4">
+    <div class="row justify-content-around">
+        <div class="col-4"> 
+            <div class="card" style="width: 18rem;">
+                <img width="100" height="180" class="card-img-top"  src="images/workout1.jpg" alt="Card image cap">
                 <div class="card-body">
-                    <h5 class="card-tittle">Choose date</h5>
-                    <form method="POST" asp-controller="Home" asp-action="ChooseDate">
-                        <div class="form-group">
-                            <input name="date" required="" type="text" value="@ViewData[" DateToDo"]" class="form-control"
-                                placeholder="Choose day" onfocus="(this.type='date')" />
-                        </div>
-                        <input type="submit" class="btn btn-primary" value="Show" />
-                    </form>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Click to add task</h5>
-                    <a class="btn btn-primary " href="/Home/CreateToDo">Add task</a>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Display tasks</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">All/Not finished</h6>
-                    <div class="dropdown form-group">
-                        <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            @if (ViewData["Show"].Equals("All"))
-                            {
-                            <span>Show all</span>
-                            }
-                            else
-                            {
-                            <span>Show only not finished</span>
-                            }
-                        </a>
-
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            <a class="dropdown-item" href="/Home/ChangeViewtoAll">Show all</a>
-                            <a class="dropdown-item" href="/Home/ChangeViewtoFalse">Show only not finished</a>
-                        </div>
-                    </div>
+                    <h5 class="card-header">Workout diary</h5>
+                    <p class="card-text">Tracking progress is important part of workouts. We will help you to keep your workout diary.</p>
+                    <a href="#" class="btn btn-primary">To workout diary</a>
                 </div>
             </div>
         </div>
-        <div class="col-8">
-            @if (Model.Any())
-            {
-            <h2><span class="badge badge-secondary">@ViewData["DateToDo"]</span></h2>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">Description</th>
-                        <th scope="col">DeadLine</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
-                    <tr>
-                        <td>@Html.DisplayFor(modelItem => item.Description)</td>
-                        <td>@Html.DisplayFor(modelItem => item.Date)</td>
-                        <td>@Html.DisplayFor(modelItem => item.Status)</td>
-                        <td>@Html.ActionLink("Change Status", "Change", new {Id = @item.Id}) / @Html.ActionLink("Edit Task", "Edit", new {Id = @item.Id}) / @Html.ActionLink("Delete task", "Delete", new {Id =@item.Id})</td>
-                    </tr>
-                    }
-            </table>
-            }
-            else
-            {
-            <h3 class="nothing">Nothing planed yet</h3>
-            }
+        <div class="col-4">
+            <div class="card" style="width: 18rem;">
+                <img width="100" height="180" class="card-img-top" src="images/workout2.jpg" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-header">List of exercises</h5>
+                    <p class="card-text">Without good technique, you have a risk to take injury . Learn more about many exercises.</p>
+                    <a asp-controller="Exercise" asp-action="Index" class="btn btn-primary">Go to list</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card" style="width: 18rem;">
+                <img class="card-img-top"  width="100" height="180"src="images/workout3.jpg" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-header">Muscle groups</h5>
+                    <p class="card-text">Learn more about your body or find new exercises for needed muscle group.</p>
+                    <a asp-controller="Muscle" asp-action="Index" class="btn btn-primary">Go to list</a>
+                </div>
+            </div>
+        
         </div>
     </div>
-    }
+    <div style="margin-top: 5%" class="row justify-content-around">
+        <div class="col-4">
+            <div class="card" style="width: 18rem;">
+                <img width="100" height="180" class="card-img-top" src="images/workout4.jpg" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-header">Daily tasks diary</h5>
+                    <p class="card-text">Without systematizing your life you are losing expensive time. Use it for help.</p>
+                    <a asp-controller="ToDo" asp-action="Index" class="btn btn-primary">Go to diary</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card" style="width: 18rem;">
+                <img class="card-img-top"  width="100" height="180"src="images/workout5.png" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-header">Internet-market</h5>
+                    <p class="card-text">Buy best equipment and sport nutrition  for your workouts and daily life.</p>
+                    <a href="#" class="btn btn-primary">Go to market</a>
+                </div>
+            </div>
+        
+        </div> 
+    </div>
+</div>

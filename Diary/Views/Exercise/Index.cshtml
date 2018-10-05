@@ -1,4 +1,4 @@
-@model IEnumerable<ToDoDiaryWeb.Models.Exercise>
+@model ToDo_Diary.ViewModels.ExerciseViewModel
 
 @{
     ViewBag.Title = "List of Exercises";
@@ -6,41 +6,55 @@
 }
 
 <div class="row">
+   
     <div class="col-3">
-        <div class="card">
+        @Html.Partial("_Group")
+        @if(User.IsInRole("admin")){
+         <div class="card">
+            <div class="card-header">Click to add exercise</div>
             <div class="card-body">
-                
-                <p class="card-text">Click to add exercise</p>
                 <a asp-action="Add" asp-controller="Exercise" class="btn btn-primary">Add</a>
             </div>
            
         </div>
-    </div>
+        }
+      </div>
         
     <div class="col-8">
         <h2 class="h2">List of exercise</h2>
-        @if (Model.Any())
+        @if (Model.Exercises.Any())
         {
             <table class="table">
                 <thead>
                 <tr>
-                    <th scope="col">Id</th>
+                  @if (User.IsInRole("admin"))
+                  {
+                      <th scope="col">Id</th>
+                  }
                     <th scope="col">Name</th>
                     <th scope="col">Muscle Group</th>
                     <th scope="col">More</th>
+                @if (User.IsInRole("admin"))
+                {
                     <th scope="col">Actions</th>
+                }    
                 </tr>
                 </thead>
                 <tbody>
-                @foreach (var item in Model)
+                @foreach (var item in Model.Exercises)
                 {
                     <tr>
-                        <th scope="row">@item.Id</th>
+                        @if (User.IsInRole("admin")){
+                            <th scope="row">@item.Id</th>
+                        }
                         <td>@item.Name</td>
                         <td>@item.MuscleGroup.Name</td>
                         <td><a asp-action="More" asp-controller="Exercise" asp-route-id="@item.Id" >Press to read more Info</a></td>
-                        <td><a asp-action="Edit" asp-controller="Exercise" asp-route-id="@item.Id">Edit</a> /  <a asp-action="Delete" asp-controller="Exercise" asp-route-id="@item.Id">Delete</a></td>
-                    </tr>
+                        @if (User.IsInRole("admin"))
+                        {
+                            <td><a asp-action="Edit" asp-controller="Exercise" asp-route-id="@item.Id">Edit</a> /  <a asp-action="Delete" asp-controller="Exercise" asp-route-id="@item.Id">Delete</a></td>
+                        }
+                    </tr>                                                                                                                                                                                 
                     
                 }
                 </tbody>

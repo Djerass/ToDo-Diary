@@ -1,4 +1,4 @@
-@model IEnumerable<ToDoDiaryWeb.Models.MuscleGroup>
+@model List<ToDoDiaryWeb.Models.MuscleGroup>
 
 @{
     ViewBag.Title = "List of Muscle Groups";
@@ -6,30 +6,76 @@
 }
 
 <h2>List of Muscle groups</h2>
-<a asp-controller="Muscle" asp-action="Add" class="btn btn-primary">Add</a>
+@if(User.IsInRole("admin")) {<a asp-controller="Muscle" asp-action="Add" class="btn btn-primary">Add</a>}
 @if (Model.Any())
 {
     <table class="table">
         <thead>
-         <tr>
-            <th scope="col">Id</th>
-            <th scope="col">Name of group</th>
-            <th scope="col">Actions</th>
-         </tr>
+        <tr>
+            @if (User.IsInRole("admin"))
+            {
+                <th scope="col">Id</th>
+            }
+                <th scope="col">Name of group</th>
+             @if (User.IsInRole("admin"))
+            {
+                <th scope="col">Actions</th>
+            }
+                <th scope="col"></th>
+        </tr>
         </thead>
         <tbody>
-        @foreach (var i in Model)
+        @for(int i=0;i<Model.Count();i++)
         {
             <tr>
-                <td>@i.Id</td>
-                <td>@i.Name</td>
+            @if (User.IsInRole("admin"))
+            {
+                <td>@Model[i].Id</td>
+            }
+                <td>@Model[i].Name</td>
+        @if (User.IsInRole("admin"))  { 
                 <td>
-                    <a asp-action="Delete" asp-controller="Muscle" asp-route-id="@i.Id">Delete</a>
-                      /  
-                    <a asp-action="Update" asp-controller="Muscle" asp-route-id="@i.Id">Update</a>
+                      <a asp-action="Delete" asp-controller="Muscle" asp-route-id="@Model[i].Id">Delete</a>
+                         /
+                      <a asp-action="Update" asp-controller="Muscle" asp-route-id="@Model[i].Id">Update</a>
                 </td>
+        }
+                <td>
+                    <p>
+                       
+                        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target=".Test_@i" aria-expanded="false" aria-controls="collapseFor">
+                           Show exercises
+                        </button>
+                    </p>
+                    <div class="collapse Test_@i" id="collapseFor">
+                        <div class="card card-body">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">More</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach (var r in Model[i].Exercises)
+                                {
+                                    <tr>
+                                    <td>@r.Name</td>
+                                    <td><a asp-action="More" asp-controller="Exercise" asp-route-id="@r.Id" >Press to read more Info</a></td>
+                                    </tr>
+                                    
+                                }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </td>
+                
             </tr>
+            
+            
         }
         </tbody>
     </table>
+    
 }

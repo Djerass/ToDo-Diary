@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace ToDoDiaryWeb.Models
 {
@@ -10,6 +11,7 @@ namespace ToDoDiaryWeb.Models
         public string VideoUrl { get; set; }
         public string ImgUrl { get; set;  }
 
+        [Required]
         public int MuscleGroupId { get; set; }
         public MuscleGroup MuscleGroup { get; set; }
 
