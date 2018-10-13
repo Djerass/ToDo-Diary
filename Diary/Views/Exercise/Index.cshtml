@@ -10,15 +10,15 @@
     <div class="col-3">
         @Html.Partial("_Group")
         @if(User.IsInRole("admin")){
-         <div class="card">
-            <div class="card-header">Click to add exercise</div>
-            <div class="card-body">
-                <a asp-action="Add" asp-controller="Exercise" class="btn btn-primary">Add</a>
-            </div>
+            <div class="card">
+                <div class="card-header">Click to add exercise</div>
+                <div class="card-body">
+                    <a asp-action="Add" asp-controller="Exercise" class="btn btn-primary">Add</a>
+                </div>
            
-        </div>
+            </div>
         }
-      </div>
+    </div>
         
     <div class="col-8">
         <h2 class="h2">List of exercise</h2>
@@ -27,17 +27,17 @@
             <table class="table">
                 <thead>
                 <tr>
-                  @if (User.IsInRole("admin"))
-                  {
-                      <th scope="col">Id</th>
-                  }
+                    @if (User.IsInRole("admin"))
+                    {
+                        <th scope="col">Id</th>
+                    }
                     <th scope="col">Name</th>
                     <th scope="col">Muscle Group</th>
                     <th scope="col">More</th>
-                @if (User.IsInRole("admin"))
-                {
-                    <th scope="col">Actions</th>
-                }    
+                    @if (User.IsInRole("admin"))
+                    {
+                        <th scope="col">Actions</th>
+                    }    
                 </tr>
                 </thead>
                 <tbody>
@@ -63,3 +63,4 @@
     </div>
     
 </div>
+<script src=""></script>
