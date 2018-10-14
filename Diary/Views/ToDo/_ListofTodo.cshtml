@@ -1,0 +1,29 @@
+@model IEnumerable<ToDo>
+@if (Model.Any())
+{
+    <h2><span class="badge badge-secondary">@ViewData["DateToDo"]</span></h2>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Description</th>
+            <th scope="col">DeadLine</th>
+            <th scope="col">Status</th>
+            <th scope="col">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Description)</td>
+                <td>@Html.DisplayFor(modelItem => item.Date)</td>
+                <td>@Html.DisplayFor(modelItem => item.Status)</td>
+                <td>@Html.ActionLink("Change Status", "Change", new {Id = @item.Id}) / @Html.ActionLink("Edit Task", "Edit", new {Id = @item.Id}) / @Html.ActionLink("Delete task", "Delete", new {Id =@item.Id})</td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <h3 class="nothing">Nothing planed yet</h3>
+}

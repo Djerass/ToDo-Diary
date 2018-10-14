@@ -9,18 +9,7 @@
 
     <div class="row">
         <div class="col-3">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-tittle">Choose date</h5>
-                    <form method="POST" asp-controller="ToDo" asp-action="ChooseDate">
-                        <div class="form-group">
-                            <input name="date" required="" type="text" value="@ViewData[" DateToDo"]" class="form-control"
-                                placeholder="Choose day" onfocus="(this.type='date')" />
-                        </div>
-                        <input type="submit" class="btn btn-primary" value="Show" />
-                    </form>
-                </div>
-            </div>
+            @HtmlHelperPartialExtensions.Partial(Html, "_ChooseDate")
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Click to add task</h5>
@@ -52,35 +41,8 @@
                 </div>
             </div>
         </div>
-        <div class="col-8">
-            @if (Model.Any())
-            {
-            <h2><span class="badge badge-secondary">@ViewData["DateToDo"]</span></h2>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">Description</th>
-                        <th scope="col">DeadLine</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
-                    <tr>
-                        <td>@Html.DisplayFor(modelItem => item.Description)</td>
-                        <td>@Html.DisplayFor(modelItem => item.Date)</td>
-                        <td>@Html.DisplayFor(modelItem => item.Status)</td>
-                        <td>@Html.ActionLink("Change Status", "Change", new {Id = @item.Id}) / @Html.ActionLink("Edit Task", "Edit", new {Id = @item.Id}) / @Html.ActionLink("Delete task", "Delete", new {Id =@item.Id})</td>
-                    </tr>
-                    }
-            </table>
-            }
-            else
-            {
-            <h3 class="nothing">Nothing planed yet</h3>
-            }
+        <div class="col-8" id="output">
+           @Html.Partial("_ListofTodo")
         </div>
     </div>
     }

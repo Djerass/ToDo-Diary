@@ -1,0 +1,16 @@
+@model ToDoDiaryWeb.ViewModels.WorkoutViewModel
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+<h2>Workout Diary</h2>
+@if (@User.Identity.IsAuthenticated)
+{
+    @Html.Partial("_ListOfWorkouts")
+}
+else
+{
+    <h3>Please <a asp-controller="Account" asp-action="Login">Login</a> or <a asp-controller="Account" asp-action="Register">Register</a></h3>
+}

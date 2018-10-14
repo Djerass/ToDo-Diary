@@ -250,11 +250,15 @@ namespace ToDoDiaryWeb.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("Count");
+
                     b.Property<DateTime>("Date");
 
                     b.Property<int>("ExerciseId");
 
                     b.Property<string>("UserId");
+
+                    b.Property<double>("Weight");
 
                     b.HasKey("Id");
 

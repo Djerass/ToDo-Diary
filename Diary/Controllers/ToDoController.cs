@@ -29,38 +29,79 @@ namespace ToDoDiaryWeb.Controllers
             //if  we have theirs  - read
             //if we haven`t create default
             try
-                {
-                    dateCookie=Request.Cookies["DateToDo"].ToString();
-                }
+            {
+                dateCookie=Request.Cookies["DateToDo"].ToString();
+            }
             catch(NullReferenceException)
-                {
-                    dateCookie=DateTime.Now.Date.ToString();
-                }
+            {
+                dateCookie=DateTime.Now.Date.ToString();
+            }
             DateTime.TryParse(dateCookie,out DateTime DateRes);
             ViewData["DateToDo"]=DateRes.ToShortDateString();
             string ShowCookieRes;
             try
-                {
-                    ShowCookieRes = Request.Cookies["Show"].ToString();
-                }
+            {
+                ShowCookieRes = Request.Cookies["Show"].ToString();
+            }
             catch(NullReferenceException)
-                {
-                     ShowCookieRes="All";
-                }
+            {
+                ShowCookieRes="All";
+            }
             ViewData["Show"]=ShowCookieRes;
-             //if ShowCookie == "All" make model with all TodoS 
-             //else make model with only false ToDos
-             //Date of ToDos is from DateCookie
+            //if ShowCookie == "All" make model with all TodoS 
+            //else make model with only false ToDos
+            //Date of ToDos is from DateCookie
             if(ShowCookieRes.Equals("All"))
-                {
+            {
                 var userId = _id.TakeId(this.User); //taking current user Id
                 return View(_db.GetAll.OrderBy(x=>x.Date).Where(x=>x.UserId==userId).Where(x=>x.Date.Date==DateRes.Date).ToList());
-                }
+            }
             else 
-                {
+            {
                 var userId = _id.TakeId(this.User); //taking current user Id
                 return View(_db.GetAll.Where(x=>x.Status==false).Where(x=>x.UserId==userId).OrderBy(x=>x.Date).Where(x=>x.Date.Date==DateRes.Date).ToList());
-                }
+            }
+        }
+
+        public IActionResult ListofTodo()
+        {
+            string dateCookie;
+            //check: Are we have DateCookie and ShowCookie allready
+            //if  we have theirs  - read
+            //if we haven`t create default
+            try
+            {
+                dateCookie=Request.Cookies["DateToDo"].ToString();
+            }
+            catch(NullReferenceException)
+            {
+                dateCookie=DateTime.Now.Date.ToString();
+            }
+            DateTime.TryParse(dateCookie,out DateTime DateRes);
+            ViewData["DateToDo"]=DateRes.ToShortDateString();
+            string ShowCookieRes;
+            try
+            {
+                ShowCookieRes = Request.Cookies["Show"].ToString();
+            }
+            catch(NullReferenceException)
+            {
+                ShowCookieRes="All";
+            }
+            ViewData["Show"]=ShowCookieRes;
+            //if ShowCookie == "All" make model with all TodoS 
+            //else make model with only false ToDos
+            //Date of ToDos is from DateCookie
+            if(ShowCookieRes.Equals("All"))
+            {
+                var userId = _id.TakeId(this.User); //taking current user Id
+                return PartialView("_ListofTodo",_db.GetAll.OrderBy(x=>x.Date).Where(x=>x.UserId==userId).Where(x=>x.Date.Date==DateRes.Date).ToList());
+            }
+            else 
+            {
+                var userId = _id.TakeId(this.User); //taking current user Id
+                return PartialView("_ListofTodo",_db.GetAll.Where(x=>x.Status==false).Where(x=>x.UserId==userId).OrderBy(x=>x.Date).Where(x=>x.Date.Date==DateRes.Date).ToList());
+            }
         }
        
      
@@ -69,8 +110,8 @@ namespace ToDoDiaryWeb.Controllers
         public IActionResult ChooseDate(DateTime date)
         {
             SwapCookie("DateToDo",date.ToShortDateString());
-           
-            return RedirectToAction("Index");
+
+            return RedirectToAction("ListofTodo");
         }
         public async Task<IActionResult> Change(int Id)
         {
@@ -129,7 +170,7 @@ namespace ToDoDiaryWeb.Controllers
          }
          public IActionResult Stat()
          {
-             var userId=_id.TakeId(this.User);
+            var userId=_id.TakeId(this.User);
             Statistic stat = new Statistic(_db.GetAll.Where(i=>i.UserId==userId).ToArray());
             ViewData["AllCount"]=stat.CountAll;
             ViewData["NotFinishedCount"]=stat.CountNotFinished;

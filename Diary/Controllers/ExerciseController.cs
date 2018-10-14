@@ -28,8 +28,7 @@ namespace ToDoDiaryWeb.Controllers
 
         public IActionResult Index()
         {
-            
-           _stance=ReadCookie();
+            _stance=ReadCookie();
             if(_stance==-1||_stance==0)
             {
                 var model = new ExerciseViewModel(){Exercises = _db.GetAllExercises().OrderBy(i=>i.MuscleGroupId).ToList(),MuscleGroups = _db.GetMuscleGroups().ToList()};
@@ -40,7 +39,24 @@ namespace ToDoDiaryWeb.Controllers
                 var model = new ExerciseViewModel(){Exercises = _db.GetAllExercises().Where(i=>i.MuscleGroupId==_stance).ToList(),MuscleGroups = _db.GetMuscleGroups().ToList()};
                 return View(model);
             }
-           
+            return View();
+
+        }
+
+        public IActionResult ListofEx()
+        {
+             _stance=ReadCookie();
+            if(_stance==-1||_stance==0)
+            {
+                var model = new ExerciseViewModel(){Exercises = _db.GetAllExercises().OrderBy(i=>i.MuscleGroupId).ToList(),MuscleGroups = _db.GetMuscleGroups().ToList()};
+                return PartialView("_ListofEx", model);
+            }
+            else
+            {
+                var model = new ExerciseViewModel(){Exercises = _db.GetAllExercises().Where(i=>i.MuscleGroupId==_stance).ToList(),MuscleGroups = _db.GetMuscleGroups().ToList()};
+                return PartialView("_ListofEx", model);
+            }
+            
         }
 
         public IActionResult Add()
@@ -83,7 +99,8 @@ namespace ToDoDiaryWeb.Controllers
             
 
             SetCookie("ShowMuscle",model.Stance);
-            return RedirectToAction("Index");
+            return RedirectToAction("ListofEx");
+
         }
 
         [HttpPost]
@@ -95,7 +112,7 @@ namespace ToDoDiaryWeb.Controllers
 
         public IActionResult Group()
         {
-            ViewBag.MuscleGroups = _db.GetMuscleGroups().ToList();
+            
             var model = new ExerciseViewModel(){MuscleGroups = _db.GetMuscleGroups().ToList()};
             return PartialView("_Group",model);
         }

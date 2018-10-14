@@ -47,6 +47,7 @@ namespace ToDoDiaryWeb
             services.AddTransient<Iid,ForId>();
             services.AddTransient<IMuscle, MuscleRepo>();
             services.AddTransient<IExercise, ExerciseRepo>();
+            services.AddTransient<ITraining, TrainingRepo>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 

@@ -8,6 +8,9 @@ namespace ToDoDiaryWeb.Models
         public int Id { get; set; }
         
         public DateTime Date { get; set; }
+        
+        public double Weight { get; set; }
+        public int Count { get; set; }
        
         public string UserId { get; set; }
         public User User { get; set; }
