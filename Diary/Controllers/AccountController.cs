@@ -46,7 +46,7 @@ public async Task<IActionResult> Login(LoginViewModel model)
         }
         else
         {
-            ModelState.AddModelError("", "Неправильный логин и (или) пароль");
+            ModelState.AddModelError("", "Wrong login and(or) password");
         }
     }
     return View(model);

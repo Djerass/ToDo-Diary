@@ -1,5 +1,5 @@
 @model ToDo_Diary.ViewModels.ExerciseViewModel
-<h2 class="h2">List of exercise</h2>
+<p class="h2">List of exercises </p>
 @if (Model.Exercises.Any())
 {
     <table class="table">
@@ -27,10 +27,13 @@
                 }
                 <td>@item.Name</td>
                 <td>@item.MuscleGroup.Name</td>
-                <td><a asp-action="More" asp-controller="Exercise" asp-route-id="@item.Id" >Press to read more Info</a></td>
+                <td><a class="btn btn-info" asp-action="More" asp-controller="Exercise" asp-route-id="@item.Id" >More</a></td>
                 @if (User.IsInRole("admin"))
                 {
-                    <td><a asp-action="Edit" asp-controller="Exercise" asp-route-id="@item.Id">Edit</a> /  <a asp-action="Delete" asp-controller="Exercise" asp-route-id="@item.Id">Delete</a></td>
+                    <td>
+                        <a class="btn btn-warning" asp-action="Edit" asp-controller="Exercise" asp-route-id="@item.Id">Edit</a> /
+                        <a class="btn btn-danger" asp-action="Delete" asp-controller="Exercise" asp-route-id="@item.Id">Delete</a>
+                    </td>
                 }
             </tr>                                                                                                                                                                                 
                     

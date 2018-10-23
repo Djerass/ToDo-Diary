@@ -1,0 +1,16 @@
+ <div class="card">
+    <div class="card-body">
+        <h5 class="card-tittle">Choose date</h5>
+        <form method="POST" asp-controller="ToDo" id="formAjaxEx"  asp-action="ChooseDate">
+            <div class="form-group">
+                <input name="date" required="" type="text"  onchange="sendRequest()" value="@ViewData["DateToDo"]" class="form-control"
+                       placeholder="Choose day" onfocus="(this.type='date')" />
+             </div>
+            
+         </form>
+     </div>
+ </div>
+<script src="js/changedate.js">
+    
+
+</script>

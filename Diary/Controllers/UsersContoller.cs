@@ -1,5 +1,6 @@
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using ToDo_Diary.Models;
@@ -7,6 +8,7 @@ using ToDo_Diary.ViewModels;
 
 namespace ToDo_Diary.Controllers
 {
+    [Authorize(Roles="admin")]
     public class UsersController : Controller
     {
         UserManager<User> _userManager;

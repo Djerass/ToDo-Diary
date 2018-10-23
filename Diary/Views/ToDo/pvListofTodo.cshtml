@@ -1,7 +1,8 @@
 @model IEnumerable<ToDo>
+<h2><span class="badge badge-secondary">@ViewData["DateToDo"]</span></h2>
 @if (Model.Any())
 {
-    <h2><span class="badge badge-secondary">@ViewData["DateToDo"]</span></h2>
+    
     <table class="table">
         <thead>
         <tr>
@@ -18,12 +19,15 @@
                 <td>@Html.DisplayFor(modelItem => item.Description)</td>
                 <td>@Html.DisplayFor(modelItem => item.Date)</td>
                 <td>@Html.DisplayFor(modelItem => item.Status)</td>
-                <td>@Html.ActionLink("Change Status", "Change", new {Id = @item.Id}) / @Html.ActionLink("Edit Task", "Edit", new {Id = @item.Id}) / @Html.ActionLink("Delete task", "Delete", new {Id =@item.Id})</td>
-            </tr>
+               <td><a asp-action="Change" asp-controller="ToDo" asp-route-Id="@item.Id" class="btn  btn-success">Change Status</a>
+                    <a asp-controller="ToDo" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-info">Edit</a>
+                    <a asp-controller="ToDo" asp-action="Delete" asp-route-Id="@item.Id" class="btn btn-danger">Delete</a>
+                    </td>
+             </tr>
         }
     </table>
 }
 else
 {
-    <h3 class="nothing">Nothing planed yet</h3>
+    <h3 class="nothing">Nothing planed on this day yet</h3>
 }

@@ -1,0 +1,15 @@
+ <div class="card">
+    <div class="card-body">
+        <h5 class="card-tittle">Choose date</h5>
+        <form method="POST" asp-controller="Workout" id="formAjaxEx"  asp-action="ChooseDate">
+            <div class="form-group">
+                <input name="dateTime" required="" type="text"  onchange="sendRequest()" value="@ViewData["DateListofTraining"]" class="form-control"
+                       placeholder="Choose day" onfocus="(this.type='date')" />
+             </div>
+             
+         </form>
+     </div>
+ </div>
+<script src="js/changedate.js">
+    
+</script>

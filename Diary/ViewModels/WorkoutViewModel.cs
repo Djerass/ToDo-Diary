@@ -6,7 +6,7 @@ namespace ToDoDiaryWeb.ViewModels
 {
     public class WorkoutViewModel
     {
-        public IEnumerable<Training> Trainings { get; set; }
+        public List<Training> Trainings { get; set; }
         public Training Workout { get; set; }
 
         

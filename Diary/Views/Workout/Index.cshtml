@@ -1,16 +1,31 @@
 @model ToDoDiaryWeb.ViewModels.WorkoutViewModel
 
 @{
-    ViewBag.Title = "title";
+    ViewBag.Title = "Workout diary";
     Layout = "_Layout";
 }
 
-<h2>Workout Diary</h2>
-@if (@User.Identity.IsAuthenticated)
-{
-    @Html.Partial("_ListOfWorkouts")
-}
-else
-{
-    <h3>Please <a asp-controller="Account" asp-action="Login">Login</a> or <a asp-controller="Account" asp-action="Register">Register</a></h3>
-}
+
+<div class="row">
+    <div class="col-3">
+        <p class="h2">Workout Diary</p>
+        @Html.Partial("_ChangeDate")
+        <div class="card">
+            <div class="card-header">Look dynamic in charts</div>
+            <div class="card-body"><a asp-action="StatPage" class="btn btn-primary">Charts</a></div>
+        </div>
+    </div>
+    <div class="col-8" id="output" >
+        @if (@User.Identity.IsAuthenticated)
+        {
+            <script src="js/WorkoutLoad.js"></script>
+        }
+        else
+        {
+            <h3>Please <a asp-controller="Account" asp-action="Login">Login</a> or <a asp-controller="Account" asp-action="Register">Register</a></h3>
+        }
+    </div>
+</div>
+<script src="js/WorkoutAddJs.js">
+                                 
+</script>

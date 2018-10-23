@@ -35,15 +35,15 @@
                 <td>@Model[i].Name</td>
         @if (User.IsInRole("admin"))  { 
                 <td>
-                      <a asp-action="Delete" asp-controller="Muscle" asp-route-id="@Model[i].Id">Delete</a>
+                      <a class="btn btn-danger" asp-action="Delete" asp-controller="Muscle" asp-route-id="@Model[i].Id">Delete</a>
                          /
-                      <a asp-action="Update" asp-controller="Muscle" asp-route-id="@Model[i].Id">Update</a>
+                      <a class="btn btn-warning" asp-action="Update" asp-controller="Muscle" asp-route-id="@Model[i].Id">Update</a>
                 </td>
         }
                 <td>
                     <p>
                        
-                        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target=".Test_@i" aria-expanded="false" aria-controls="collapseFor">
+                        <button class="btn btn-success" type="button" data-toggle="collapse" data-target=".Test_@i" aria-expanded="false" aria-controls="collapseFor">
                            Show exercises
                         </button>
                     </p>
@@ -61,7 +61,7 @@
                                 {
                                     <tr>
                                     <td>@r.Name</td>
-                                    <td><a asp-action="More" asp-controller="Exercise" asp-route-id="@r.Id" >Press to read more Info</a></td>
+                                    <td><a class="btn btn-info" asp-action="More" asp-controller="Exercise" asp-route-id="@r.Id" >More</a></td>
                                     </tr>
                                     
                                 }

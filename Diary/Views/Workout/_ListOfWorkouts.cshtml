@@ -1,39 +1,93 @@
 @model ToDoDiaryWeb.ViewModels.WorkoutViewModel
 
+<h2>@ViewData["DateListofTraining"]</h2>
 @if (Model.Trainings.Any())
 {
-    foreach (var training in Model.Trainings)
-    {
-        <div>@training.Exercise.Name - @training.Weight - @training.Count</div>
-        <div></div>
-    }
+    <table class="table"> 
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Exercise</th>
+            <th scope="col">Weight</th>
+            <th scope="col">Count</th>
+            <th scope="col">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+            @for (var i = 0; i < @Model.Trainings.Count(); i++)
+            {
+                <tr>
+                    <th scope="row">@{@(i+1)}</th>
+                    <td>@Model.Trainings[i].Exercise.Name</td>
+                    <td>@Model.Trainings[i].Weight</td>
+                    <td>@Model.Trainings[i].Count</td>
+                    <td><a asp-controller="Workout" asp-action="DeleteEx" class="btn-danger btn" asp-route-id="@Model.Trainings[i].Id">Delete</a></td>                  
+                </tr>
+            }
+            
+              
+            
+         </tbody>
+    
+     </table>
+    
 }
 else
 {
     <h2>There are no any  exercises today yet</h2>
 }
-<a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-    Ссылка с href
+
+<a  style="margin-bottom: 1%"  onclick="this.remove()" class="btn btn-primary" data-toggle="collapse" href="#collapse" role="button" aria-expanded="false" aria-controls="collapse">
+    Add
 </a>
-<div class="collapse" id="collapseExample">
-<div class="card card-body">
-<form asp-controller="Workout" asp-action="Add" method="post">
-    <div class="form-group">
-        <label asp-for="Workout.ExerciseId">Choose Exercise</label>
-        <div class="form-group">
-            <select class="form-control"  asp-for="Workout.ExerciseId" asp-items="@(new SelectList(ViewBag.Exercises, "Id", "Name"))">
-            </select>
-        </div>
-        <div class="form-group">
-            <label asp-for="Workout.Weight">Weight</label>
-            <input type="number" required="" class="form-control" asp-for="Workout.Weight"/>
-        </div>
-        <div class="form-group">
-            <label asp-for="Workout.Count">Count</label>
-            <input type="number" required="" class="form-control"asp-for="Workout.Count"/>
-        </div>
-        <input type="submit" class="btn btn-primary"/>
-    </div>    
-</form>
+<div class="collapse" id="collapse">
+    <div class="card card-body add-workout">
+        <form asp-controller="Workout"  asp-action="Add" method="post" id="formAjaxAdd">
+          <table> 
+              <tr>
+                  <th></th>
+                  <th> 
+                      <div class="validation" asp-validation-summary="ModelOnly"></div>
+                      <div class="form-group">
+                          <label asp-for="Workout.ExerciseId">Choose Exercise</label>
+                          <input class="form-control" type="text" list="listOfex" id="input0" asp-for="Workout.ExerciseId"/>
+                          
+               
+                      </div>
+                  </th>
+                  <th>
+                      <div class="form-group">
+                          <label asp-for="Workout.Weight">Weight</label>
+                          <input type="text" id="input1"   class="form-control" asp-for="Workout.Weight"/>
+                          
+                      </div></th>
+                  <td> <div class="form-group">
+                      <label asp-for="Workout.Count">Count</label>
+                      <input type="number" id="input2"  required="" class="form-control"asp-for="Workout.Count"/>
+                      
+                  </div>
+                  <td>  
+                      <input type="button" onclick="SendAddRequest()" value="Save"  name="submit" class="btn btn-primary"/></td>
+              </tr>
+              <tr>
+                  <th></th>
+                  <th><span class="text-danger" id="input0val"></span></th>
+                  <th><span class="text-danger" id="input1val"></span></th>
+                  <th><span class="text-danger" id="input2val"></span></th>
+                  <th></th>
+              </tr>
+          </table> 
+        </form>
+       
+       
+        
+        <datalist   id="listOfex">
+           @foreach (var i in ViewBag.Exercises)
+           {
+               <option value="@i.Id">@i.Name</option>
+           }
+        </datalist>
     </div>
 </div>
+
+

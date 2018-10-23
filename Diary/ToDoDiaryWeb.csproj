@@ -6,15 +6,13 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.2.0-preview1-35029" />
+      <PackageReference Include="System.Net.Http" Version="4.3.2" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.2.0-preview1-35029" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.2.0-preview1-35029">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="wwwroot\images" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
   </ItemGroup>
 
  

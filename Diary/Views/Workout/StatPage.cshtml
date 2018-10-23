@@ -1,0 +1,101 @@
+@model ToDoDiaryWeb.ViewModels.StatPageViewModel
+
+@{
+    ViewBag.Title = "Progress look";
+    Layout = "_Layout";
+}
+<form method="post" asp-controller="Workout" asp-action="Statistic" id="formAjaxStat">
+    <div class="form-group">
+        <label asp-for="ExerciseId">Choose exercise</label>
+        <input class="form-control" type="text" list="listOfex" id="inputId" asp-for="ExerciseId"/>
+    </div>
+    <span class="text-danger" id="IdValidation"></span>
+    <div class="form-group">
+        <label asp-for="StartDate">Start date</label>
+        <input name="StartDate" required="" type="text"  class="form-control"
+               placeholder="Choose day" id="inputStart" onfocus="(this.type='date')" />
+    </div>
+    <div>
+        <span class="text-danger" id="dateValidation"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="EndDate">End date</label>
+        <input name="EndDate" required="" type="text"   class="form-control"
+               placeholder="Choose day" id="inputEnd" onfocus="(this.type='date')" />
+    </div>
+     <input type="button" onclick="run();" name="submitBtn" class="btn btn-primary"  value="Show"/>
+</form>
+
+<div id="output"></div>
+<datalist   id="listOfex">
+    @foreach (var i in ViewBag.Exercises)
+    {
+        <option value="@i.Id">@i.Name</option>
+    }
+</datalist>
+
+<script>
+
+
+   function run() {
+       function spView(id,start,end) {
+           this.Id = id;
+           this.Start = start;
+           this.End = end;
+           this.Show = function() {
+               return this.Id+ " " + this.Start + " " + this.End;
+           }
+           this.CheckDate = function() {
+               var res = (this.Start < this.End)&&(this.Start!=null)&&(this.End!=null);
+               return res;
+           }
+           this.CheckExId= function (){
+          
+               var items = document.getElementById("listOfex").getElementsByTagName("option");
+          
+               var flag = false;
+               for (var i in items) {
+                   if (items[i].value === id ) {
+                       flag = true;
+                       break;
+                   }
+               }
+               return flag;
+           
+           
+           }
+       }
+       
+       var validationText = document.getElementById("dateValidation");
+       validationText.innerHTML="";
+       var validationId = document.getElementById("IdValidation");
+       validationId.innerHTML = "";
+       var form = document.getElementById("formAjaxStat");
+       var inpId = form.querySelector("#inputId");
+       var inpStart = form.querySelector("#inputStart");
+       var inpEnd = form.querySelector("#inputEnd")
+       inpId.style = "border: 1px  solid #ced4da";
+       inpStart.style = "border: 1px  solid #ced4da";
+       inpEnd.style = "border: 1px  solid #ced4da";
+       var checker = new spView(inpId.value, inpStart.value, inpEnd.value);
+       
+       if (!checker.CheckExId()) {
+           inpId.style = "border: 1px  solid red";
+           validationId.innerHTML = "Choose exercise from the list";
+           return;
+       }
+       
+       if (!checker.CheckDate()) {
+           inpStart.style = "border: 1px  solid red";
+           inpEnd.style = "border: 1px  solid red";
+           validationText.innerHTML = "Uncorrected dates";
+           return;
+       }
+
+       form.submit();
+
+
+   }
+</script>
+
+

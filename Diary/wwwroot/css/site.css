@@ -5,3 +5,9 @@ body{
 .nothing{
     text-align: center;
 }
+.add-workout{
+    background-color: #f8f8f8 !important;
+}
+.home-page{
+    background-color: #e9ecef !important;
+}

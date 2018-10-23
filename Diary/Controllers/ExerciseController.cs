@@ -39,7 +39,7 @@ namespace ToDoDiaryWeb.Controllers
                 var model = new ExerciseViewModel(){Exercises = _db.GetAllExercises().Where(i=>i.MuscleGroupId==_stance).ToList(),MuscleGroups = _db.GetMuscleGroups().ToList()};
                 return View(model);
             }
-            return View();
+            
 
         }
 
@@ -49,12 +49,12 @@ namespace ToDoDiaryWeb.Controllers
             if(_stance==-1||_stance==0)
             {
                 var model = new ExerciseViewModel(){Exercises = _db.GetAllExercises().OrderBy(i=>i.MuscleGroupId).ToList(),MuscleGroups = _db.GetMuscleGroups().ToList()};
-                return PartialView("_ListofEx", model);
+                return PartialView("pvListofEx", model);
             }
             else
             {
                 var model = new ExerciseViewModel(){Exercises = _db.GetAllExercises().Where(i=>i.MuscleGroupId==_stance).ToList(),MuscleGroups = _db.GetMuscleGroups().ToList()};
-                return PartialView("_ListofEx", model);
+                return PartialView("pvListofEx", model);
             }
             
         }
@@ -114,7 +114,7 @@ namespace ToDoDiaryWeb.Controllers
         {
             
             var model = new ExerciseViewModel(){MuscleGroups = _db.GetMuscleGroups().ToList()};
-            return PartialView("_Group",model);
+            return PartialView("pvGroup",model);
         }
 
         private int ReadCookie()

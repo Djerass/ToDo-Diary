@@ -8,7 +8,7 @@
 <div class="row">
    
     <div class="col-3">
-        @Html.Partial("_Group")
+        @Html.Partial("pvGroup")
         @if(User.IsInRole("admin")){
             <div class="card">
                 <div class="card-header">Click to add exercise</div>
@@ -21,7 +21,7 @@
     </div>
         
     <div class="col-8" id="output">
-        @Html.Partial("_ListofEx")
+        @Html.Partial("pvListofEx")
     </div>
     
 </div>
