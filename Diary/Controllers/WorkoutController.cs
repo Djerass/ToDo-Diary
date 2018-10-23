@@ -49,7 +49,7 @@ namespace ToDoDiaryWeb.Controllers
             var userId = _id.TakeId(this.User);
             ViewData["DateListofTraining"]=DateRes.ToShortDateString();
            // return PartialView("_ListOfWorkouts",new WorkoutViewModel(){Trainings =_db.GetAll().Where(x=>x.UserId==userId).Where(x=>x.Date.Date==DateRes.Date).ToList()});
-            return PartialView("_ListOfWorkouts",new WorkoutViewModel(){Trainings = await _db.GetAll().Where(x=>x.UserId==userId).Where(x=>x.Date.Date==DateRes.Date).ToListAsync()});
+            return PartialView("pvListOfWorkouts",new WorkoutViewModel(){Trainings = await _db.GetAll().Where(x=>x.UserId==userId).Where(x=>x.Date.Date==DateRes.Date).ToListAsync()});
         }
 
         [HttpPost]
