@@ -222,6 +222,25 @@ namespace ToDoDiaryWeb.Migrations
                     b.ToTable("MuscleGroups");
                 });
 
+            modelBuilder.Entity("ToDoDiaryWeb.Models.Product", b =>
+                {
+                    b.Property<int>("ProductID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Category");
+
+                    b.Property<string>("Description");
+
+                    b.Property<string>("Name");
+
+                    b.Property<decimal>("Price");
+
+                    b.HasKey("ProductID");
+
+                    b.ToTable("Products");
+                });
+
             modelBuilder.Entity("ToDoDiaryWeb.Models.ToDo", b =>
                 {
                     b.Property<int>("Id")

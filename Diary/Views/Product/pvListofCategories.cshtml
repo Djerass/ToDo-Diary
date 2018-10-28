@@ -1,0 +1,20 @@
+@model ToDoDiaryWeb.ViewModels.ListofProductViewModel
+@if(@Model.Categories.Any())
+{
+    <a class="@(null == Model.CurrentCategory ? "btn btn-block btn-primary" : "btn  btn-block btn-outline-secondary")"
+       asp-action="Index"
+       asp-controller="Product"
+       asp-route-category="">
+        Home
+    </a>
+foreach (var category in Model.Categories)
+{ 
+  
+    <div><a asp-action="Index" asp-route-currentPage="1" 
+            asp-route-currentCategory="@category"
+            class="@( category == Model.CurrentCategory ? "btn btn-block  btn-primary" : "btn  btn-block btn-outline-secondary")">
+        @category
+    </a>
+    </div>
+}
+}

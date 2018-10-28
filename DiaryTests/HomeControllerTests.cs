@@ -48,7 +48,7 @@ namespace DiaryTests
         //Given
          ClaimsPrincipal User = new ClaimsPrincipal();
         var mock = new Mock<IToDoRepository>();
-            mock.SetupGet(rep=>rep.GetAll).Returns(GetList());
+            mock.SetupGet(rep=>rep.GetAll).Returns( GetList());
         var mock2 =new Mock<Iid>();
         mock2.Setup(id=>id.TakaId(User)).Returns(1.ToString);
             var controller = new HomeController(mock.Object,mock2.Object);
@@ -62,7 +62,7 @@ namespace DiaryTests
         
         
     }*/
-
+/*
     public class ServiceTest
     {
         [Fact]
@@ -85,4 +85,5 @@ namespace DiaryTests
         };
 
     }
+    */
 }

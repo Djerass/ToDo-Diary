@@ -48,6 +48,7 @@ namespace ToDoDiaryWeb
             services.AddTransient<IMuscle, MuscleRepo>();
             services.AddTransient<IExercise, ExerciseRepo>();
             services.AddTransient<ITraining, TrainingRepo>();
+            services.AddTransient<IProductRepository, ProductRepository>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
@@ -75,6 +76,7 @@ namespace ToDoDiaryWeb
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+            SeedData.EnsurePopulated(app);
         }
     }
 }
