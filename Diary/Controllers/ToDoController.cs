@@ -12,7 +12,7 @@ using ToDoDiaryWeb.Models;
 
 namespace ToDoDiaryWeb.Controllers
 {
-    public class ToDoController : Controller
+    public class ToDoController : CookieController
     {
         private readonly  IToDoRepository _db;
         private readonly Iid _id;
@@ -29,43 +29,14 @@ namespace ToDoDiaryWeb.Controllers
 
         public IActionResult ListofTodo()
         {
-            string dateCookie;
-            //check: Are we have DateCookie and ShowCookie allready
-            //if  we have theirs  - read
-            //if we haven`t create default
-            try
-            {
-                dateCookie=Request.Cookies["DateToDo"].ToString();
-            }
-            catch(NullReferenceException)
-            {
-                dateCookie=DateTime.Now.Date.ToString();
-            }
-            DateTime.TryParse(dateCookie,out DateTime DateRes);
-            ViewData["DateToDo"]=DateRes.ToShortDateString();
-            string ShowCookieRes;
-            try
-            {
-                ShowCookieRes = Request.Cookies["Show"].ToString();
-            }
-            catch(NullReferenceException)
-            {
-                ShowCookieRes="All";
-            }
-            ViewData["Show"]=ShowCookieRes;
-            //if ShowCookie == "All" make model with all TodoS 
-            //else make model with only false ToDos
-            //Date of ToDos is from DateCookie
-            if(ShowCookieRes.Equals("All"))
-            {
-                var userId = _id.TakeId(this.User); //taking current user Id
-                return PartialView("pvListofTodo",_db.GetAll.OrderBy(x=>x.Date).Where(x=>x.UserId==userId).Where(x=>x.Date.Date==DateRes.Date).ToList());
-            }
-            else 
-            {
-                var userId = _id.TakeId(this.User); //taking current user Id
-                return PartialView("pvListofTodo",_db.GetAll.Where(x=>x.Status==false).Where(x=>x.UserId==userId).OrderBy(x=>x.Date).Where(x=>x.Date.Date==DateRes.Date).ToList());
-            }
+            var date = ReadDateCookie("DateToDo");
+            ViewData["DateToDo"]=date.ToShortDateString();
+           var show= ReadCookie("Show")==null?"All":ReadCookie("Show");
+            ViewData["Show"]=show;
+           var userId = _id.TakeId(this.User); //taking current user Id
+          return  show.Equals("All")? PartialView("pvListofTodo",_db.GetAll.OrderBy(x=>x.Date).Where(x=>x.UserId==userId).Where(x=>x.Date.Date==date.Date).ToList()):
+              PartialView("pvListofTodo",_db.GetAll.Where(x=>x.Status==false).Where(x=>x.UserId==userId).OrderBy(x=>x.Date).Where(x=>x.Date.Date==date.Date).ToList());
+         
         }
        
      
@@ -142,13 +113,7 @@ namespace ToDoDiaryWeb.Controllers
             return View(stat.Failed());
          }
        
-        private void SwapCookie(string key,string value)
-        {
-            Response.Cookies.Delete(key);
-            CookieOptions cookie = new CookieOptions();
-            cookie.Expires = DateTime.Now.AddDays(3);       
-            Response.Cookies.Append(key,value,cookie);
-        }
+
            
         
 

@@ -50,6 +50,8 @@ namespace ToDoDiaryWeb
             services.AddTransient<ITraining, TrainingRepo>();
             services.AddTransient<IProductRepository, ProductRepository>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMemoryCache();
+            services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -69,13 +71,14 @@ namespace ToDoDiaryWeb
             app.UseStaticFiles();
             app.UseAuthentication();
             app.UseCookiePolicy();
-
+            app.UseSession();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+            
             SeedData.EnsurePopulated(app);
         }
     }
