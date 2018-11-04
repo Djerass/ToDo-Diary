@@ -8,7 +8,7 @@
     
         <form name="formAjaxEx" method="post" asp-controller="Exercise" asp-action="ChangeStance" id="formAjaxEx">
             <div class="form-group">
-                <select class="form-control" onchange="sendRequest()" required="" asp-for="Stance" asp-items="@(new SelectList(Model.MuscleGroups, "Id", "Name"))">
+                <select class="form-control" onchange="sendRequest()" required="" asp-for="Stance" asp-items="@(new SelectList(ViewBag.MuscleGroups, "Id", "Name"))">
                     <option selected="selected" >Show all</option>
                 </select>
             </div>    

@@ -1,8 +1,12 @@
+using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using ToDoDiaryWeb.Models;
 using System.Linq;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore.Internal;
+
 namespace ToDoDiaryWeb.Repositories
 {
     public class SeedData
@@ -50,8 +54,11 @@ namespace ToDoDiaryWeb.Repositories
                         Category = "Chess", Price = 1200
                     }
                 );
+             
                 context.SaveChanges();
             }
+
+           
         }
     }
 }

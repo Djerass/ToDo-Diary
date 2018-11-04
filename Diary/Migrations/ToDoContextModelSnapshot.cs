@@ -186,6 +186,27 @@ namespace ToDoDiaryWeb.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("ToDoDiaryWeb.Models.CartLine", b =>
+                {
+                    b.Property<int>("CartLineID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("OrderID");
+
+                    b.Property<int?>("ProductID");
+
+                    b.Property<int>("Quantity");
+
+                    b.HasKey("CartLineID");
+
+                    b.HasIndex("OrderID");
+
+                    b.HasIndex("ProductID");
+
+                    b.ToTable("CartLine");
+                });
+
             modelBuilder.Entity("ToDoDiaryWeb.Models.Exercise", b =>
                 {
                     b.Property<int>("Id")
@@ -220,6 +241,40 @@ namespace ToDoDiaryWeb.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("MuscleGroups");
+                });
+
+            modelBuilder.Entity("ToDoDiaryWeb.Models.Order", b =>
+                {
+                    b.Property<int>("OrderID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("City")
+                        .IsRequired();
+
+                    b.Property<string>("Country")
+                        .IsRequired();
+
+                    b.Property<bool>("GiftWrap");
+
+                    b.Property<string>("Line1")
+                        .IsRequired();
+
+                    b.Property<string>("Line2");
+
+                    b.Property<string>("Line3");
+
+                    b.Property<string>("Name")
+                        .IsRequired();
+
+                    b.Property<bool>("Shipped");
+
+                    b.Property<string>("Zip")
+                        .IsRequired();
+
+                    b.HasKey("OrderID");
+
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("ToDoDiaryWeb.Models.Product", b =>
@@ -331,6 +386,17 @@ namespace ToDoDiaryWeb.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("ToDoDiaryWeb.Models.CartLine", b =>
+                {
+                    b.HasOne("ToDoDiaryWeb.Models.Order")
+                        .WithMany("Lines")
+                        .HasForeignKey("OrderID");
+
+                    b.HasOne("ToDoDiaryWeb.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductID");
                 });
 
             modelBuilder.Entity("ToDoDiaryWeb.Models.Exercise", b =>

@@ -22,7 +22,7 @@
                 </span>
             </h4>
         </div>
-        <div class="card-text p-1">@p.Description</div>
+        
         <form id="@p.ProductID" asp-action="AddToCart"
               asp-controller="Cart" method="post">
             <input type="hidden" name="productId"  value="@p.ProductID"/>
@@ -42,7 +42,9 @@
     <ul class="pagination">
         @for (var i = 1; i <= Model.PageInfo.TotalPages;i++)
         {
-            <li class="page-item @(i==Model.PageInfo.CurrentPage?"active":"")"><a class="page-link" asp-action="Index" asp-route-currentCategory="@Model.CurrentCategory" asp-route-currentPage="@i">@i</a></li>
+            <li class="page-item @(i == Model.PageInfo.CurrentPage ? "active" : "")">
+                <a class="page-link" asp-action="Index" asp-route-currentCategory="@Model.CurrentCategory" asp-route-currentPage="@i">@i</a>
+            </li>
         }
     </ul>
 </div>  

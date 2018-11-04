@@ -21,24 +21,17 @@ namespace ToDoDiaryWeb.Controllers
             _db=db;
             
          
-            ViewBag.MuscleGroups = _db.GetMuscleGroups().ToList();
+            
             
 
         }
 
         public IActionResult Index()
         {
-            _stance=ReadCookie();
-            if(_stance==-1||_stance==0)
-            {
-                var model = new ExerciseViewModel(){Exercises = _db.GetAllExercises().OrderBy(i=>i.MuscleGroupId).ToList(),MuscleGroups = _db.GetMuscleGroups().ToList()};
-                return View(model);
-            }
-            else
-            {
-                var model = new ExerciseViewModel(){Exercises = _db.GetAllExercises().Where(i=>i.MuscleGroupId==_stance).ToList(),MuscleGroups = _db.GetMuscleGroups().ToList()};
-                return View(model);
-            }
+           
+            ViewBag.MuscleGroups = _db.GetMuscleGroups().ToList();
+            return View();
+            
             
 
         }
