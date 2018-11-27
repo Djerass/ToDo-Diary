@@ -7,7 +7,7 @@
 
 <div class="row">
    
-    <div class="col-3">
+    <div class="col mobile">
         @Html.Partial("pvGroup")
         @if(User.IsInRole("admin")){
             <div class="card">
@@ -20,7 +20,7 @@
         }
     </div>
    
-    <div class="col-8" id="output">
+    <div class="col-8 mobile" id="output">
        
     </div>
     <script src="js/ExercuseLoad.js">

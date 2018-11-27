@@ -11,3 +11,9 @@ body{
 .home-page{
     background-color: #e9ecef !important;
 }
+.mobile{
+    max-width: 100%;
+}
+.textJump{
+    text-align: center;
+}

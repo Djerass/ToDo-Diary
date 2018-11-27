@@ -7,7 +7,7 @@
 
 
 <div class="row">
-    <div class="col-3">
+    <div class="col-3 mobile">
         <p class="h2">Workout Diary</p>
         @Html.Partial("pvChangeDate")
         <div class="card">
@@ -15,7 +15,7 @@
             <div class="card-body"><a asp-action="StatPage" class="btn btn-primary">Charts</a></div>
         </div>
     </div>
-    <div class="col-8" id="output" >
+    <div class="col-8 mobile" id="output" >
         @if (@User.Identity.IsAuthenticated)
         {
             <script src="js/WorkoutLoad.js"></script>

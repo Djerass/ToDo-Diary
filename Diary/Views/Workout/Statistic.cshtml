@@ -6,8 +6,8 @@
     var XLabels = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.Date).ToList());
     var YValues = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.MaxWeight).ToList());
 }
-<h3>In this you have trained @ViewBag.exerciseName - @ViewBag.count </h3>
-<h4>Chart of max weight </h4> 
+<h3 class="textJump">In this you have trained @ViewBag.exerciseName - @ViewBag.count </h3>
+<h4 class="textJump">Chart of max weight </h4> 
        
         
 <div class="box-body">

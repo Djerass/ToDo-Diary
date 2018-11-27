@@ -1,6 +1,6 @@
 var request = new XMLHttpRequest();
 request.open("GET", "/ToDo/ListofTodo");
-document.getElementById("output").innerHTML = "<img src=\"images/bb_cat_dribbble.gif\" alt=\"Loading...\"></img>";
+document.getElementById("output").innerHTML = "<img style='max-width: 100%;' src=\"images/bb_cat_dribbble.gif\" alt=\"Loading...\"></img>";
 request.onreadystatechange = function () {
     if (request.readyState == 4 && request.status == 200)
         document.getElementById("output").innerHTML = request.responseText;
